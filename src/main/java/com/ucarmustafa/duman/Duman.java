@@ -3,6 +3,7 @@ package com.ucarmustafa.duman;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.SocketException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,6 +57,11 @@ public class Duman {
 								if (data == '>')
 									checkMessageEnd();
 							}
+						} catch (SocketException e) {
+							e.printStackTrace();
+							
+							if (e.getMessage().equals("Socket closed"))
+								break;
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
@@ -83,9 +89,9 @@ public class Duman {
 			return;
 		
 		if (buffer[messageEnd] == '>') { // message ok
-			for (int i = 0; i <= messageEnd; i++)
+			/*for (int i = 0; i <= messageEnd; i++)
 				System.out.print(buffer[i] + " ");
-			System.out.println();
+			System.out.println();*/
 			
 			byte messageType = buffer[2];
 			
